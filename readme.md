@@ -1,4 +1,4 @@
-# Exericse by Aviate
+# Exercise by Aviate
 
 ## The following repository consist of a Django Rest Framework app for a Job Review Application System(jars)
 
