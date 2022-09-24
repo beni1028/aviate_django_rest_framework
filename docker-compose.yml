@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+
+  app:
+    restart: always
+    container_name: jasr_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - pgdb
+
+
+  pgdb:
+    container_name: pgdb
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=jars
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
