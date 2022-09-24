@@ -1,6 +1,6 @@
 # Exercise by Aviate
 
-## The following repository consist of a Django Rest Framework app for a Job Review Application System(jars)
+## The following repository consists of a Django Rest Framework app for a Job Review Application System(jars)
 
 ### AIM: 
 1. TO CREATE A BACKED FOR CRUD AND LISTING OF SAID DATA (APPLICANTS). ABILITY TO BOOL AS SELECTED OR REJECT APPLICANTS.
