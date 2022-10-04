@@ -1,6 +1,10 @@
+'''
+Importing All modules
+'''
 import random
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+
 
 class MyAccountManager(BaseUserManager):
     '''
@@ -41,12 +45,12 @@ class MyAccountManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser,PermissionsMixin):
     '''
     Creating thr custom user module schema.
     '''
     email                   = models.EmailField(verbose_name="email", max_length=60, unique=True)
-    username                = models.CharField(max_length=30, unique=True)
+    username                = models.CharField(max_length=150, unique=True)
     date_joined             = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login              = models.DateTimeField(verbose_name='last login', auto_now=True)
     is_admin                = models.BooleanField(default=False)
@@ -117,6 +121,8 @@ class Applicant(models.Model):
     
     ## This function has been commented out. 
     #if the user case was broder, then this function would be really help full to navigate a list full of applicants
+    
+    
     # def get_profile_url(self): 
     #     return f'http://127.0.0.1:8000/api/applicant/detail/{self.slug}'
         
@@ -167,3 +173,35 @@ class Applicant(models.Model):
         }
         self.app_status=hashmap[self.app_enum_status]
         self.save()
+
+
+class Candidate(models.Model):
+    '''
+    Creating the applicant model and schema.
+    '''
+    In_HOUSE = "in_house"
+    MIGRATED = "migrated"
+    SOURCE_CHOICES = (
+            (MIGRATED, "Migrated"),
+            (In_HOUSE, "In House")
+    )
+    email = models.EmailField(null=True, blank=True)
+    source = models.CharField(max_length=10, choices=SOURCE_CHOICES, default=In_HOUSE, blank=True)
+
+
+    # reminders related fields 
+    resume_pending_reminder_active = models.BooleanField(default=False)
+    audio_pending_reminder_active = models.BooleanField(default=False)
+    grammar_pending_reminder_active = models.BooleanField(default=False)
+    last_contacted_at = models.DateTimeField(blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    # User Extention
+    user = models.OneToOneField(User, on_delete = models.CASCADE, blank = True, null = True)
+    # junk = models.TextField(blank = True)
+
+
+    def _str_(self):
+        return f"{self.email}"
