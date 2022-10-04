@@ -4,7 +4,7 @@ services:
 
   app:
     restart: always
-    container_name: jasr_app
+    container_name: jars_app
     build:
       context: .
       dockerfile: Dockerfile

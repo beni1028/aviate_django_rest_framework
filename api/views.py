@@ -28,6 +28,7 @@ from .serializers import ApplicantSerializer, ApplicantSerializerV2, ApplicantSt
 from .models import Applicant
 
 
+
 #############################################################################
 # ONLY THE CREATEVIEW AND RETRIEVE-UPDATE-DESTROY API ARE SUFFICIENT FOR THE CRUD OPERATIONS
 # FOR THE SAKE OF THIS EXERCISE, EXTRA GENERIC API VIEWS ARE USER.
@@ -205,3 +206,5 @@ class ApplicantDetailsViewV2(APIView):
         applicant = self.get_object(uid)
         serializer = ApplicantSerializerV2(applicant)
         return Response(serializer.data)
+
+
