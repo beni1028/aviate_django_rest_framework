@@ -1,7 +1,7 @@
 from django.db import transaction
 from django.core.management.base import BaseCommand
 
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 
 
 class Command(BaseCommand):
